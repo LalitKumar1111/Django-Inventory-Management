@@ -33,12 +33,4 @@ class POAdmin(admin.ModelAdmin):
 
 admin.site.register(PO,POAdmin)
 
-class SOAdmin(admin.ModelAdmin):
-    list_display = ['id','sonum','sodate','deptname','username','pname','rquantity','uname','priceperunit','amount','deliverystatus']
 
-admin.site.register(SO,SOAdmin)
-
-class UserAdmin(admin.ModelAdmin):
-    list_display = ['id','deptname','name','email','mobile']
-
-admin.site.register(Users,UserAdmin)
