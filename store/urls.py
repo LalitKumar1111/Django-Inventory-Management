@@ -31,14 +31,4 @@ urlpatterns = [
     path('edit-po/<int:id>/', edit_po, name='edit-po'),
     path('delete-po/<int:id>/', delete_po, name='delete-po'),
     path('po-list/', PoListView, name='po-list'),
-
-    path('create-so/', create_so, name='create-so'),
-    path('edit-so/<int:id>/', edit_so, name='edit-so'),
-    path('delete-so/<int:id>/', delete_so, name='delete-so'),
-    path('so-list/', SoListView, name='so-list'),
-
-    path('create-user/', create_user, name='create-user'),
-    path('edit-user/<int:id>/', edit_user,name='edit-user'),
-    path('delete-user/<int:id>/', delete_user, name='delete-user'),
-    path('user-list/', UserListView, name='user-list'),
 ]
