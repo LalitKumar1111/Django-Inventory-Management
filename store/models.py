@@ -66,30 +66,3 @@ class PO(models.Model):
 
     def __str__(self):
         return self.ponum
-
-class Users(models.Model):
-    deptname = models.ForeignKey(Dept, on_delete=models.CASCADE, default=1)
-    name = models.CharField(max_length=120)
-    email = models.CharField(max_length=220)
-    mobile = models.IntegerField()
-
-    def __str__(self):
-        return self.name
-
-class SO(models.Model):
-    DELIVERY_CHOICE=(
-        ('Delivered', 'Delivered'),
-        ('Undelivered', 'Undelivered'),)
-    sonum=models.CharField(max_length=120, unique=True)
-    sodate= models.DateField(null=True)
-    deptname = models.ForeignKey(Dept, on_delete=models.CASCADE, default=1)
-    username = models.ForeignKey(Users, on_delete=models.CASCADE, default=1)
-    pname = models.ForeignKey(Product, on_delete=models.CASCADE, default=1)
-    rquantity = models.IntegerField()
-    uname = models.ForeignKey(Unit, on_delete=models.CASCADE, default=1)
-    priceperunit = models.IntegerField()
-    amount = models.IntegerField()
-    deliverystatus = models.CharField(max_length=20, choices=DELIVERY_CHOICE,null=True)
-
-    def __str__(self):
-        return self.sonum
