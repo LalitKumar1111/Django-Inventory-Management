@@ -1,0 +1,122 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Category/ Unit List{% endblock title %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs bg-secondary">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">Category/ Unit</a></li>
+                            <li class="active">List</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="box-title">Category List </h4>
+            </div>
+            <div class="card-body--">
+                <div class="table-stats order-table ov-h">
+                    <table class="table ">
+                        <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>Category Name</th>
+                            <th>Category Details</th>
+                            <th>Edit/Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if category %}
+                        {% for ct in category %}
+                        <tr>
+
+                            <td>{{ ct.id }}</td>
+                            <td>{{ ct.catname }}</td>
+                            <td>{{ ct.catdetails }}</td>
+                            <td>
+                                <a href="{% url 'edit-category' ct.id %}" class="btn btn-warning btn-sm">Edit</a>
+                                <form action="{% url 'delete-category' ct.id %}" method="post" class="d-inline">
+                                    {% csrf_token %}
+                                    <input type="submit" class="btn btn-danger" value="Delete">
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr><td>No Category Data</td></tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div> <!-- /.table-stats -->
+            </div>
+
+        </div> <!-- /.card -->
+    </div>  <!-- /.col-lg-8 -->
+</div>
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="box-title">Unit List </h4>
+            </div>
+            <div class="card-body--">
+                <div class="table-stats order-table ov-h">
+                    <table class="table ">
+                        <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>Unit Name</th>
+                            <th>Edit/Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if unit %}
+                        {% for unit in unit %}
+                        <tr>
+
+                            <td>{{ unit.id }}</td>
+                            <td>{{ unit.uname }}</td>
+                            <td>
+                                <a href="{% url 'edit-category' unit.id %}" class="btn btn-warning btn-sm">Edit</a>
+                                <form action="{% url 'delete-unit' unit.id %}" method="post" class="d-inline">
+                                    {% csrf_token %}
+                                    <input type="submit" class="btn btn-danger" value="Delete">
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr><td>No Unit Data</td></tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div> <!-- /.table-stats -->
+            </div>
+
+        </div> <!-- /.card -->
+    </div>  <!-- /.col-lg-8 -->
+</div>
+{% endblock content %}

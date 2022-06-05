@@ -1,0 +1,158 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Create PO{% endblock title %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs bg-secondary">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">PO</a></li>
+                            <li class="active">Create</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title">Create PO</strong>
+            </div>
+            <div class="card-body">
+                <!-- Credit Card -->
+                <div id="pay-invoice">
+                    <div class="card-body">
+                        <form action="#" method="post" novalidate="novalidate">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="text" placeholder="PO num" name="ponum" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="date" placeholder="PO date" name="podate" required>
+                            </div>
+                            <div class="form-group">
+                                <select name="supplier" required>
+                                    {% for s in suppliers %}
+                                    <option value="{{ s.id }}">{{ s.name }}</option>
+                                    {% endfor %}
+                                </select>
+
+                                <select name="Product name" required>
+                                    {% for p1 in products %}
+                                    <option value="{{ p1.id }}">{{ p1.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="Price per unit" name="priceperunit" required>
+                            </div>
+                            <div class="form-group">
+                                <select name="unit" required>
+                                    <option>Select Unit</option>
+                                    {% for unit in units %}
+                                    <option value="{{ unit.id }}">{{ unit.uname }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="Required quantity" name="rquantity" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="Amount" name="amount" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder=Deliverystatus" name="deliverystatus" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder=paymentstatus" name="paymentstatus" required>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-2">
+                            <div>
+                                <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                                    <span id="payment-button-amount">Create PO</span>
+                                </button>
+                            </div></div></div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div> <!-- .card -->
+
+    </div><!--/.col-->
+</div>
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="box-title">PO List </h4>
+            </div>
+            <div class="card-body--">
+                <div class="table-stats order-table ov-h">
+                    <table class="table ">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Product name</th>
+                            <th>Product code</th>
+                            <th>Quantity</th>
+                            <th>Unit</th>
+                            <th>price per unit</th>
+                            <th>Amount</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if po %}
+                        {% for po in po %}
+                        <tr>
+
+                            <td>{{ po.id }}</td>
+                            <td>{{ po.pname }}</td>
+                            <td>{{ po.pcode }}</td>
+                            <td>{{ po.rquantity }}</td>
+                            <td>{{ po.uname }}</td>
+                            <td>{{ po.priceperunit }}</td>
+                            <td>{{ po.amount }}</td>
+                            <td>
+                                <form action="{% url 'delete-po' po.id %}"
+                                      method="post" >{% csrf_token %}
+                                    <input type="submit" class="btn btn-danger" value="Delete">
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr><td>No PO Data</td></tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div> <!-- /.table-stats -->
+            </div>
+        </div> <!-- /.card -->
+    </div>  <!-- /.col-lg-8 -->
+
+
+</div>
+{% endblock content %}

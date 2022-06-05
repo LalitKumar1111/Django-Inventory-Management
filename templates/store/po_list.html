@@ -1,0 +1,144 @@
+{% extends 'base/base.html' %}
+
+{% block title %}PO List{% endblock title %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs bg-secondary">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">PO</a></li>
+                            <li class="active">List</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title">Search PO</strong>
+            </div>
+            <div class="card-body">
+                <!-- Credit Card -->
+                <div id="pay-invoice">
+                    <div class="card-body">
+                        <form action="#" method="post" novalidate="novalidate">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Ponum" name="ponum">
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <input type="date" placeholder="Podate" name="podate">
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <input type="text" placeholder="supplier" name="supplier">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Deliverystatus" name="deliverystatus">
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Paymentstatus" name="paymentstatus">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-2">
+
+                                    <div>
+                                        <button id="payment-button" type="submit"  class="btn btn-lg btn-info btn-block">
+                                            <span id="payment-button-amount">Search PO</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div></div>
+
+            </div>
+        </div> <!-- .card -->
+
+    </div><!--/.col-->
+</div>
+
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="box-title">PO List </h4>
+            </div>
+            <div class="card-body--">
+                <div class="table-stats order-table ov-h">
+                    <table class="table ">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>PO#</th>
+                            <th>PO Date</th>
+                            <th>Supplier</th>
+                            <th>Delivery status</th>
+                            <th>Payment status</th>
+                            <th>View/Edit</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if po %}
+                        {% for po in po %}
+                        <tr>
+
+                            <td>{{ po.id }}</td>
+                            <td>{{ po.ponum }}</td>
+                            <td>{{ po.podate }}</td>
+                            <td>{{ po.supplier }}</td>
+                            <td>{{ po.deliverystatus }}</td>
+                            <td>{{ po.paymentstatus }}</td>
+                            <td>
+                                <a href="{% url 'edit-po' po.id %}" class="btn btn-warning btn-sm">Edit</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr><td>No PO Data</td></tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div> <!-- /.table-stats -->
+            </div>
+        </div> <!-- /.card -->
+    </div>  <!-- /.col-lg-8 -->
+
+
+</div>
+{% endblock content %}

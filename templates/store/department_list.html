@@ -1,0 +1,84 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Department List{% endblock title %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs bg-secondary">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">Department</a></li>
+                            <li class="active">List</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="box-title">Department List </h4>
+            </div>
+            <div class="card-body--">
+                <div class="table-stats order-table ov-h">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Department/Dept</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Mobile</th>
+                                <th>Edit/Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if Department %}
+                            {% for Department in Department %}
+                            <tr>
+
+                                <td>{{ Department.id }}</td>
+                                <td>Department</td>
+                                <td>{{ Department.deptname }}</td>
+                                <td>{{ Department.email }}</td>
+                                <td>{{ Department.mobile }}</td>
+                                <td>
+                                    <a href="{% url 'edit-department' Department.id %}" class="btn btn-warning btn-sm">Edit</a>
+                                    <form action="{% url 'delete-department' Department.id %}" method="post" class="d-inline">
+                                        {% csrf_token %}
+                                        <input type="submit" class="btn btn-danger" value="Delete">
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                                <tr><td>No Department Data</td></tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div> <!-- /.table-stats -->
+            </div>
+        </div> <!-- /.card -->
+    </div>  <!-- /.col-lg-8 -->
+
+
+</div>
+{% endblock content %}

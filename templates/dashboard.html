@@ -1,0 +1,65 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Inventory{% endblock title %}
+
+{% block content %}
+<h1>Inventory Summary </h1>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body bg-warning">
+                <h3 class="box-title ">Inventory Summary list </h3>
+            </div>
+            <div class="card-body--">
+                <div class="table-stats order-table ov-h">
+                    <table class="table ">
+                        <thead>
+                        <tr>
+                            <th class="serial">#</th>
+                            <th>Product Name</th>
+                            <th>Procuct code</th>
+                            <th>Min stock required</th>
+                            <th>Unit</th>
+                            <th>Stock in hand</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr>
+                            {% if product %}
+                            {% for product in product %}
+                            <td>{{ product.id }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.pcode }}</td>
+                            <td>{{ product.minstacktomaintain }}</td>
+                            <td>{{ product.unit }}</td>
+                            <td>{{ product.stockinhand }}</td>
+                            {% if product.minstacktomaintain <= product.stockinhand %}
+                            <td><span class="dot2"></span></td>
+                            {% elif product.minstacktomaintain == product.stockinhand %}
+                            <td><span class="dot1"></span></td>
+                            {% elif product.minstacktomaintain >= product.stockinhand %}
+                            <td><span class="dot"></span></td>
+                            {% endif %}
+
+                        </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr><td>No Product Data</td></tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div> <!-- /.table-stats -->
+            </div>
+        </div> <!-- /.card -->
+    </div>  <!-- /.col-lg-8 -->
+</div>
+<h4>Note: </h4>
+<h6><span class="dot2"></span> If Min. stack <= Stock in hand </h6>
+
+<h6><span class="dot1"></span>   If Min. stack == Stock in hand </h6>
+
+<h6><span class="dot"></span>    If Min. stack >= Stock in hand </h6>
+
+{% endblock content %}
